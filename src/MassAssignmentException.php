@@ -1,6 +1,6 @@
 <?php
 
-namespace PandaXR\Model;
+namespace Lxr\Model;
 
 use RuntimeException;
 

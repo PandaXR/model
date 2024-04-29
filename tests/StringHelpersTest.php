@@ -1,7 +1,7 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use PandaXR\Model\StringHelpers;
+use Lxr\Model\StringHelpers;
 
 class StringHelpersTest extends TestCase
 {

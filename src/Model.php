@@ -1,6 +1,6 @@
 <?php
 
-namespace PandaXR\Model;
+namespace Lxr\Model;
 
 use ArrayAccess;
 use JsonSerializable;
@@ -95,7 +95,7 @@ abstract class Model implements ArrayAccess, JsonSerializable
      * @param  array  $attributes
      * @return $this
      *
-     * @throws \PandaXR\Model\MassAssignmentException
+     * @throws \Lxr\Model\MassAssignmentException
      */
     public function fill(array $attributes)
     {
@@ -153,7 +153,7 @@ abstract class Model implements ArrayAccess, JsonSerializable
      *
      * @param  array  $attributes
      * @param  bool   $exists
-     * @return \PandaXR\Model\Model
+     * @return \Lxr\Model\Model
      */
     public function newInstance($attributes = [])
     {
@@ -789,7 +789,7 @@ abstract class Model implements ArrayAccess, JsonSerializable
      * Clone the model into a new, non-existing instance.
      *
      * @param  array|null  $except
-     * @return \PandaXR\Model\Model
+     * @return \Lxr\Model\Model
      */
     public function replicate(array $except = null)
     {

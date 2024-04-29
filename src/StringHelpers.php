@@ -1,6 +1,6 @@
 <?php
 
-namespace PandaXR\Model;
+namespace Lxr\Model;
 
 /**
  * String methods from Illuminate\Support\Str

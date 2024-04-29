@@ -18,7 +18,7 @@
     },
     "autoload": {
         "psr-4": {
-            "PandaXR\\Model\\": "src/"
+            "Lxr\\Model\\": "src/"
         }
     }
 }
