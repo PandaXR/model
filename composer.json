@@ -1,0 +1,21 @@
+{
+    "name": "pandaxr/model",
+    "description": "Eloquent-like model class with no external dependencies. Inspired by jenssegers/model package.",
+    "keywords": ["laravel", "eloquent", "model"],
+    "homepage": "https://github.com/PandaXR/model",
+    "license" : "MIT",
+    "authors": [
+        {
+            "name": "Alexey Rodionov",
+            "homepage": "https://github.com/PandaXR"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "^11.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "PandaXR\\Model\\": "src/"
+        }
+    }
+}
