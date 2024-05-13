@@ -2,9 +2,7 @@
 
 namespace Lxr\Model;
 
-use RuntimeException;
-
-class MassAssignmentException extends RuntimeException
+class MassAssignmentException extends ModelException
 {
 
 }

@@ -16,6 +16,13 @@ abstract class Model implements ArrayAccess, JsonSerializable
     protected $attributes = [];
 
     /**
+     * The loaded relationships for the model.
+     *
+     * @var array
+     */
+    protected $relations = [];
+
+    /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
@@ -588,9 +595,7 @@ abstract class Model implements ArrayAccess, JsonSerializable
      */
     protected function getAttributeFromArray($key)
     {
-        if (array_key_exists($key, $this->attributes)) {
-            return $this->attributes[$key];
-        }
+        return $this->getAttributes()[$key] ?? null;
     }
 
     /**
@@ -883,9 +888,13 @@ abstract class Model implements ArrayAccess, JsonSerializable
      * @param  mixed  $offset
      * @return bool
      */
-    public function offsetExists(mixed $offset): bool
+    public function offsetExists($offset): bool
     {
-        return isset($this->$offset);
+        try {
+            return ! is_null($this->getAttribute($offset));
+        } catch (MissingAttributeException) {
+            return false;
+        }
     }
 
     /**
@@ -894,9 +903,9 @@ abstract class Model implements ArrayAccess, JsonSerializable
      * @param  mixed  $offset
      * @return mixed
      */
-    public function offsetGet(mixed $offset)
+    public function offsetGet($offset): mixed
     {
-        return $this->$offset;
+        return $this->getAttribute($offset);
     }
 
     /**
@@ -906,9 +915,9 @@ abstract class Model implements ArrayAccess, JsonSerializable
      * @param  mixed  $value
      * @return void
      */
-    public function offsetSet(mixed $offset, mixed $value): void
+    public function offsetSet($offset, $value): void
     {
-        $this->$offset = $value;
+        $this->setAttribute($offset, $value);
     }
 
     /**
@@ -917,9 +926,20 @@ abstract class Model implements ArrayAccess, JsonSerializable
      * @param  mixed  $offset
      * @return void
      */
-    public function offsetUnset(mixed $offset): void
+    public function offsetUnset($offset): void
     {
-        unset($this->$offset);
+        unset($this->attributes[$offset], $this->relations[$offset]);
+    }
+
+    /**
+     * Unset an attribute on the model.
+     *
+     * @param  string  $key
+     * @return void
+     */
+    public function __unset($key)
+    {
+        $this->offsetUnset($key);
     }
 
     /**
@@ -932,17 +952,6 @@ abstract class Model implements ArrayAccess, JsonSerializable
     {
         return (isset($this->attributes[$key]) || isset($this->relations[$key])) ||
                 ($this->hasGetMutator($key) && ! is_null($this->getAttributeValue($key)));
-    }
-
-    /**
-     * Unset an attribute on the model.
-     *
-     * @param  string  $key
-     * @return void
-     */
-    public function __unset($key)
-    {
-        unset($this->attributes[$key]);
     }
 
     /**
